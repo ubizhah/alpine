@@ -80,35 +80,10 @@
             <div class="cell-xs-10 cell-sm-7 cell-md-5 cell-lg-4 offset-top-40 offset-top-0 swiper-center-caption swiper-center-caption-centered">
              <div class="panel panel-lg panel-lg-vertical bg-overlay-gray-dark text-lg-left">
                 <h5 class="text-white">Consultation</h5>
-                <form data-form-output="form-output-global" data-form-type="contact" method="post" action="https://formspree.io/ubairshahq@gmail.com" novalidate="novalidate" class="rd-mailform offset-top-24">
-                  <div class="group-12 group-top">
-                    <div class="group-item element-fullwidth">
-                      <div class="form-group form-group-label-outside">
-                        <label for="index-name" class="form-label form-label-outside rd-input-label text-white-05">Name</label>
-                        <input id="index-name" type="text" data-constraints="@Required" class="form-control form-control-white form-border-none">
-                      </div>
-                    </div>
-                    <div class="group-item element-fullwidth">
-                      <div class="form-group form-group-label-outside">
-                        <label for="index-email" class="form-label form-label-outside rd-input-label text-white-05">E-mail</label>
-                        <input id="index-email" type="email" data-constraints="@Email @Required" class="form-control form-control-white form-border-none" name="_replyto">
-                      </div>
-                    </div>
-                    <div class="group-item element-fullwidth">
-                      <div class="form-group form-group-select-white text-left">
-                        <label for="index-doctor" class="form-label form-label-outside text-white-05">Doctor</label>
-                        <div class="select2-whitout-border shadow-drop-md">
-                          <select id="index-doctor" data-minimum-results-for-search="Infinity" class="form-control">
-                            <option value="1">Doctor</option>
-                            <option value="2">Nurse</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="group-item element-fullwidth offset-top-20 text-center text-md-left">
-                      <button type="submit" class="btn-ellipse btn btn-primary">book a consultation</button>
-                    </div>
-                  </div>
+                <form action="https://formspree.io/your@email.com"method="POST">
+                    <input type="text" name="name">
+                    <input type="email" name="_replyto">
+                    <input type="submit" value="Send">
                 </form>
               </div>
             </div>
