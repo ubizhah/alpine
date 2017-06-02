@@ -78,10 +78,12 @@
         <div class="container">
             <!-- Top Header -->
             <div class="default-top row">
-                <div class="logo-block">
-                    <a class="navbar-brand mobile-hide" href="index.html"><img src="assets/logo-white.png" style="background-color: red; max-width: 12%; padding-bottom: 10"></i>ALPINE MEDICAL CENTRE</a>
+                <div class="col-md-8 logo-block">
+                    <div class= "col-md-6">
+                    <a class="navbar-brand mobile-hide" href="index.html"><img src="assets/logo-white-wide.png" style="background-color: red; max-width: 136%; margin-left: -70px; padding-left: 74px"></i></a>
                 </div>
-                <a href="tel:386489550686" title="+386 489 550 686" class="phone-call"><i class="fa fa-phone-square"></i>03 7857 537</a>
+                </div>
+                <a href="tel:03 7857 537" title="03 7857 537" class="phone-call"><i class="fa fa-phone-square"></i>03 7857 537</a>
             </div><!-- Top Header /- -->
         </div><!-- Container /- -->
         <!-- Ownavigation -->
@@ -95,7 +97,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand desktop-hide" href="index.html"><i class="fa fa-heartbeat"></i>Alpine MEdical Centre</a>
+                    <a class="navbar-brand desktop-hide" href="index.html"><img src="assets/logo-white-wide.png" style="background-color: red; max-width: 114%; margin-left: -54px; padding-left: 116px; margin-bottom: -12px"></i></a>
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
                     <ul class="nav navbar-nav menubar">
@@ -171,13 +173,13 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12 col-xs-12 clinic-form">
-                            <form class="appoinment-form">
+                            <form class="appoinment-form" action= "https://formspree.io/ubairshahq@gmail.com" method="POST">
                                 <h5><i class="fa fa-calendar-check-o"></i>Make Appointment</h5>
                                 <div class="form-group col-md-12 no-padding">                           
                                     <input type="text" class="form-control" placeholder="Your Name" id="patient_name" name="patient-name">
                                 </div>
                                 <div class="form-group col-md-12 no-padding">                           
-                                    <input type="email" class="form-control" placeholder="Email Address" id="patient_email" name="patient-email">
+                                    <input type="email" class="form-control" placeholder="Email Address" id="patient_email" name="_replyto">
                                 </div>
                                 <div class="form-group input-group col-md-12 no-padding">
                                     <div class="col-md-7 col-sm-8 col-xs-8 no-padding">
@@ -218,7 +220,7 @@
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12 no-padding">                           
                                     <textarea rows="4" class="form-control" placeholder="Your Message..." id="patient_message" name="patient-message"></textarea>
                                 </div>
-                                <button type="submit" id="appointment_submit" class="btn-submit pull-right"><i class="fa fa-heart-o"></i>Submit</button>
+                                <button type="submit" id="appointment_submit" class="btn-submit pull-right" value="Send"><i class="fa fa-heart-o"></i>Submit</button>
                                 <div id="appointment-alert-msg" class="alert-msg"></div>
                             </form>
                         </div>
