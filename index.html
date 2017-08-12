@@ -172,20 +172,20 @@
                                 
                             </div>
                         </div>
-                        <div id='appointment' class="col-md-4 col-sm-12 col-xs-12 clinic-form">
-                            <form class="appoinment-form" action= "https://formspree.io/ubairshahq@gmail.com" method="POST">
+                        <div class="col-md-4 col-sm-12 col-xs-12 clinic-form">
+                            <form id="patient-form" class="appoinment-form" method="POST">
                                 <h5><i class="fa fa-calendar-check-o"></i>Make Appointment</h5>
                                 <div class="form-group col-md-12 no-padding">                           
-                                    <input type="text" class="form-control" placeholder="Your Name" id="patient_name" name="patient-name">
+                                    <input type="text" class="form-control" placeholder="Your Name" id="patient_name" name="patient-name" required>
                                 </div>
                                 <div class="form-group col-md-12 no-padding">                           
-                                    <input type="email" class="form-control" placeholder="Email Address" id="patient_email" name="_replyto">
+                                    <input type="email" class="form-control" placeholder="Email Address" id="patient_email" name="_replyto" required>
                                 </div>
                                 <div class="form-group input-group col-md-12 no-padding">
                                     <div class="col-md-7 col-sm-8 col-xs-8 no-padding">
                                         <div class="col-md-6 col-sm-6 col-xs-6 no-left-padding">
                                             <div class='date' id='datetimepicker1'>
-                                                <input type='text' class="form-control" id="patient_date" name="patient-date" placeholder="Day" />
+                                                <input type='text' class="form-control" id="patient_date" name="patient-date" placeholder="Day"/>
                                                 <span class="fa fa-angle-down"></span>
                                             </div>
                                         </div>
@@ -347,11 +347,47 @@
     
     <script src="assets/slick.min.js"></script>
     
-    <!-- Library - Google Map API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDW40y4kdsjsz714OVTvrw7woVCpD8EbLE"></script>
     
     <!-- Library - Theme JS -->
     <script src="assets/js/functions.js"></script>
-    
+
+    <!-- form-spree -->
+    <script type="text/javascript">
+            var patientForm = $('#patient-form')
+            patientForm.on('submit', function(e) {
+                e.preventDefault();
+                var patient_name = $('#patient_name').val();
+                var patient_email = $('#patient_email').val();
+                var patient_date = $('#patient_date').val();
+                var patient_time = $('#patient_time').val();
+                var patient_department = $('#patient_department').val();
+                var patient_message = $('#patient_message').val()
+                data = {"name": patient_name,
+                        "email": patient_email,
+                    }
+                $.ajax({
+                    headers: {          
+                        Accept: "application/json",         
+                      }
+                    url: 'https://formspree.io/ubairshahq@gmail.com',
+                    method: 'POST',
+                    data: {message: "hello!"},
+                    dataType: 'json',
+                    beforeSend: function() {
+                        patientForm.append('<div class="alert alert--loading">Sending message…</div>');
+                    },
+                    success: function(data) {
+                        patientForm.find('.alert--loading').hide();
+                        patientForm.append('<div class="alert alert--success">Message sent!</div>');
+                    },
+                    error: function(err) {
+                        patientForm.find('.alert--loading').hide();
+                        patientForm.append('<div class="alert alert--error">Ops, there was an error.</div>');
+                    }
+                });
+            });
+    </script>
+
 </body>
+
 </html>
