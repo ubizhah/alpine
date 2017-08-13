@@ -185,12 +185,12 @@
                                     <div class="col-md-7 col-sm-8 col-xs-8 no-padding">
                                         <div class="col-md-6 col-sm-6 col-xs-6 no-left-padding">
                                             <div class='date' id='datetimepicker1'>
-                                                <input type='text' class="form-control" id="patient_date" name="date" placeholder="Day"/>
+                                                <input type='text' class="form-control" id="patient_date" name="date" placeholder="Day" required />
                                                 <span class="fa fa-angle-down"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-6 no-left-padding">
-                                            <select class="selectpicker" id="patient_time" name="time">
+                                            <select class="selectpicker" id="patient_time" name="time" required>
                                                 <option>Time</option>
                                                 <option>09:00</option>
                                                 <option>10:00</option>
@@ -207,7 +207,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 col-sm-4 col-xs-4 no-padding">
-                                        <select class="selectpicker"  id="patient_department" name="department">
+                                        <select class="selectpicker"  id="patient_department" name="department" required>
                                             <option>Department</option>
                                             <option>General Medicine - Acute and Chronic disease management</option>
                                             <option>General Medicine - Pain management</option>
@@ -219,7 +219,7 @@
                                     <textarea rows="4" class="form-control" placeholder="Your Message..." id="patient_message" name="message"></textarea>
                                 </div>
                                 <button type="submit" id="appointment_submit" class="btn-submit pull-right" value="Send"><i class="fa fa-heart-o"></i>Submit</button>
-                                <div id="appointment-alert-msg" class="alert-msg"></div>
+                                <div id="alert-message" class="alert-msg"></div>
                             </form>
                         </div>
                     </div>
@@ -306,23 +306,23 @@
                 </div>
                 <div class="col-md-4 col-sm-6 col-xs-6 contact-form">
                     <h3 class="widget-title">Any Questions ?</h3>
-                    <form class = "Queries" action= "https://formspree.io/ubairshahq@gmail.com" method="POST">
+                    <form class = "Queries" id='query-form' method="POST">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="full Name" name="contact-fname" id="input_fname" required="" />
+                            <input type="text" class="form-control" placeholder="full Name" name="name" id="input_fname" required="" />
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="email Address" name="_replyto" id="input_email" required="" />
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="subject" name="contact-subject" id="input_subject" />
+                            <input type="text" class="form-control" placeholder="subject" name="_subject" id="input_subject" />
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="message" rows="4" name="contact-message" id="input_message" ></textarea>
+                            <textarea class="form-control" placeholder="message" rows="4" name="message" id="input_message" ></textarea>
                         </div>
                         <div class="form-group">
-                            <button title="Learn More" id="que_btn_submit" type="submit" name="post" value="Send">Learn more</button>
+                            <button title="Send" id="que_btn_submit" type="submit" name="post" value="Send">Send</button>
                         </div>
-                        <div id="alert-msg-que" class="alert-msg"></div>
+                        <div id="alert-message" class="alert-msg"></div>
                     </form>
                 </div>
             </div>
@@ -354,18 +354,43 @@
     <!-- form-spree -->
     <script type="text/javascript">
 
-    function showalert(message, alerttype) {
+        function showalert(message, alerttype) {
 
-        $('#appointment-alert-msg').append('<div id="alertdiv" class="alert ' +  alerttype + '"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
+            $('.alert-msg').append('<div id="alertdiv" class="alert ' +  alerttype + '"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
 
-        setTimeout(function() { // this will automatically close the alert and remove this if the users doesnt close it in 5 secs
+            setTimeout(function() { // this will automatically close the alert and remove this if the users doesnt close it in 5 secs
 
 
-          $("#alertdiv").remove();
+                $("#alertdiv").remove();
 
-        }, 5000);
-  }
+            }, 5000);
+            }
+
+            function sendData(data){
+                $.ajax({
+                    url: '//formspree.io/ubairshahq@gmail.com',
+                    method: 'POST',
+                    data: data,
+                    dataType: 'json',
+                    beforeSend: function() {
+                        showalert('Sending message…', 'alert-loading');
+                    },
+                    success: function(data) {
+                        patientForm.find('.alert-loading').hide();
+                        queryForm.find('.alert-loading').hide();
+                        showalert('Message sent!', 'alert-success')
+                        patientForm[0].reset();
+                    },
+                    error: function(err) {
+                        patientForm.find('.alert-loading').hide();
+                        queryForm.find('.alert-loading').hide();
+                        showalert('Ops, there was an error.', 'alert-error')
+                        patientForm[0].reset();
+                    }
+                });
+            }
             var patientForm = $('#patient-form')
+            var queryForm = $('#query-form')
             patientForm.on('submit', function(e) {
                 e.preventDefault();
                 var patient_name = $('#patient_name').val();
@@ -381,26 +406,21 @@
                         time: patient_time,
                         department: patient_department
                     }
+                sendData(data);
+            });
 
-                $.ajax({
-                    url: '//formspree.io/uzharefarooq@gmail.com',
-                    method: 'POST',
-                    data: data,
-                    dataType: 'json',
-                    beforeSend: function() {
-                        showalert('Sending message…', 'alert-loading');
-                    },
-                    success: function(data) {
-                        patientForm.find('.alert-loading').hide();
-                        showalert('Message sent!', 'alert-success')
-                        patientForm[0].reset();
-                    },
-                    error: function(err) {
-                        patientForm.find('.alert-loading').hide();
-                        showalert('Ops, there was an error.', 'alert-error')
-                        patientForm[0].reset();
-                    }
-                });
+            queryForm.on('submit', function(e){
+                e.preventDefault();
+                var name = $('#input_fname').val();
+                var email = $('#input_email').val();
+                var subject = $('#input_subject').val();
+                var message = $('#input_message').val();
+                data = {name: name,
+                    _replyto: email,
+                    _subject: subject,
+                    message: message}
+                sendData(data);
+                queryForm[0].reset()
             });
     </script>
 
