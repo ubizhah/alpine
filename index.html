@@ -12,20 +12,20 @@
 
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <meta name="referrer" content="origin"/>
     <title>ALPINE MEDICAL CENTRE - Home</title>
 
     <!-- Standard Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images//favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
     
     <!-- For iPhone 4 Retina display: -->
-    <link rel="apple-touch-icon-precomposed" href="assets/images//apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/apple-touch-icon-114x114-precomposed.png">
     
     <!-- For iPad: -->
-    <link rel="apple-touch-icon-precomposed" href="assets/images//apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/images/apple-touch-icon-72x72-precomposed.png">
     
     <!-- For iPhone: -->
-    <link rel="apple-touch-icon-precomposed" href="assets/images//apple-touch-icon-57x57-precomposed.png">  
+    <link rel="apple-touch-icon-precomposed" href="assets/images/apple-touch-icon-57x57-precomposed.png">  
     
     <!-- Library - Google Font Familys -->
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Montserrat+Alternates:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Playfair+Display:400,400i,700,700i,900,900i|Poppins:300,400,500,600,700|Quattrocento:400,700|Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
@@ -172,11 +172,11 @@
                                 
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 clinic-form">
-                            <form id="patient-form" class="appoinment-form" method="POST">
+                        <div class="col-md-4 col-sm-12 col-xs-12 clinic-form" id='appointment'>
+                            <form id="patient-form" class="appoinment-form" method="POST" action="https://formspree.io/uzharefarooq@gmail.com">
                                 <h5><i class="fa fa-calendar-check-o"></i>Make Appointment</h5>
                                 <div class="form-group col-md-12 no-padding">                           
-                                    <input type="text" class="form-control" placeholder="Your Name" id="patient_name" name="patient-name" required>
+                                    <input type="text" class="form-control" placeholder="Your Name" id="patient_name" name="name" required>
                                 </div>
                                 <div class="form-group col-md-12 no-padding">                           
                                     <input type="email" class="form-control" placeholder="Email Address" id="patient_email" name="_replyto" required>
@@ -185,12 +185,12 @@
                                     <div class="col-md-7 col-sm-8 col-xs-8 no-padding">
                                         <div class="col-md-6 col-sm-6 col-xs-6 no-left-padding">
                                             <div class='date' id='datetimepicker1'>
-                                                <input type='text' class="form-control" id="patient_date" name="patient-date" placeholder="Day"/>
+                                                <input type='text' class="form-control" id="patient_date" name="date" placeholder="Day"/>
                                                 <span class="fa fa-angle-down"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-6 no-left-padding">
-                                            <select class="selectpicker" id="patient_time" name="patient-time">
+                                            <select class="selectpicker" id="patient_time" name="time">
                                                 <option>Time</option>
                                                 <option>09:00</option>
                                                 <option>10:00</option>
@@ -207,7 +207,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 col-sm-4 col-xs-4 no-padding">
-                                        <select class="selectpicker"  id="patient_department" name="patient-department">
+                                        <select class="selectpicker"  id="patient_department" name="department">
                                             <option>Department</option>
                                             <option>General Medicine - Acute and Chronic disease management</option>
                                             <option>General Medicine - Pain management</option>
@@ -216,7 +216,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-12 col-sm-12 col-xs-12 no-padding">                           
-                                    <textarea rows="4" class="form-control" placeholder="Your Message..." id="patient_message" name="patient-message"></textarea>
+                                    <textarea rows="4" class="form-control" placeholder="Your Message..." id="patient_message" name="message"></textarea>
                                 </div>
                                 <button type="submit" id="appointment_submit" class="btn-submit pull-right" value="Send"><i class="fa fa-heart-o"></i>Submit</button>
                                 <div id="appointment-alert-msg" class="alert-msg"></div>
@@ -352,7 +352,7 @@
     <script src="assets/js/functions.js"></script>
 
     <!-- form-spree -->
-    <script type="text/javascript">
+<!--     <script type="text/javascript">
             var patientForm = $('#patient-form')
             patientForm.on('submit', function(e) {
                 e.preventDefault();
@@ -362,13 +362,10 @@
                 var patient_time = $('#patient_time').val();
                 var patient_department = $('#patient_department').val();
                 var patient_message = $('#patient_message').val()
-                data = {"name": patient_name,
-                        "email": patient_email,
+                data = {name: patient_name,
+                        _replyto: patient_email,
                     }
                 $.ajax({
-                    headers: {          
-                        Accept: "application/json",         
-                      }
                     url: 'https://formspree.io/ubairshahq@gmail.com',
                     method: 'POST',
                     data: {message: "hello!"},
@@ -386,7 +383,7 @@
                     }
                 });
             });
-    </script>
+    </script> -->
 
 </body>
 
