@@ -173,7 +173,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12 col-xs-12 clinic-form" id='appointment'>
-                            <form id="patient-form" class="appoinment-form" method="POST" action="https://formspree.io/uzharefarooq@gmail.com">
+                            <form id="patient-form" class="appoinment-form" method="POST">
                                 <h5><i class="fa fa-calendar-check-o"></i>Make Appointment</h5>
                                 <div class="form-group col-md-12 no-padding">                           
                                     <input type="text" class="form-control" placeholder="Your Name" id="patient_name" name="name" required>
@@ -352,7 +352,19 @@
     <script src="assets/js/functions.js"></script>
 
     <!-- form-spree -->
-<!--     <script type="text/javascript">
+    <script type="text/javascript">
+
+    function showalert(message, alerttype) {
+
+        $('#appointment-alert-msg').append('<div id="alertdiv" class="alert ' +  alerttype + '"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
+
+        setTimeout(function() { // this will automatically close the alert and remove this if the users doesnt close it in 5 secs
+
+
+          $("#alertdiv").remove();
+
+        }, 5000);
+  }
             var patientForm = $('#patient-form')
             patientForm.on('submit', function(e) {
                 e.preventDefault();
@@ -364,26 +376,33 @@
                 var patient_message = $('#patient_message').val()
                 data = {name: patient_name,
                         _replyto: patient_email,
+                        message: patient_message,
+                        date: patient_date,
+                        time: patient_time,
+                        department: patient_department
                     }
+
                 $.ajax({
-                    url: 'https://formspree.io/ubairshahq@gmail.com',
+                    url: '//formspree.io/uzharefarooq@gmail.com',
                     method: 'POST',
-                    data: {message: "hello!"},
+                    data: data,
                     dataType: 'json',
                     beforeSend: function() {
-                        patientForm.append('<div class="alert alert--loading">Sending message…</div>');
+                        showalert('Sending message…', 'alert-loading');
                     },
                     success: function(data) {
-                        patientForm.find('.alert--loading').hide();
-                        patientForm.append('<div class="alert alert--success">Message sent!</div>');
+                        patientForm.find('.alert-loading').hide();
+                        showalert('Message sent!', 'alert-success')
+                        patientForm[0].reset();
                     },
                     error: function(err) {
-                        patientForm.find('.alert--loading').hide();
-                        patientForm.append('<div class="alert alert--error">Ops, there was an error.</div>');
+                        patientForm.find('.alert-loading').hide();
+                        showalert('Ops, there was an error.', 'alert-error')
+                        patientForm[0].reset();
                     }
                 });
             });
-    </script> -->
+    </script>
 
 </body>
 
